@@ -1,0 +1,12 @@
+{
+  "name": "aveva-ue-customization",
+  "description": "AVEVA Unified Engineering Customization Framework - Skills and agents for UE add-in development lifecycle",
+  "version": "1.0.0",
+  "author": {
+    "name": "AVEVA"
+  },
+  "keywords": ["UE", "Unified Engineering", "Customization", "Add-In", "AVEVA"],
+  "skills": "skills/",
+  "agents": "agents/",
+  "helpers": "helpers/"
+}

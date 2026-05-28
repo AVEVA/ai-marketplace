@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PBSDefinition xmlns="http://aveva.com/FlexibleExplorerDefinition.xsd">
+  <PBSWorld Name="ExampleWorld">
+    <PBSTemplate Name="ExampleTemplate">
+      <TextFormula>Equipment (XML)</TextFormula>
+      <Sorting>3</Sorting>
+      <PBSObjectNode Name="Equipment">
+        <TextFormula>FLNN</TextFormula>
+        <FormulaType>0</FormulaType>
+        <Formula>COLLECT ALL EQUI</Formula>
+        <PBSObjectNode Name="Nozzles">
+          <TextFormula>FLNN</TextFormula>
+          <FormulaType>0</FormulaType>
+          <Formula>COLLECT ALL NOZZ FOR #PARAM(Equipment)</Formula>
+        </PBSObjectNode>
+      </PBSObjectNode>
+    </PBSTemplate>
+  </PBSWorld>
+</PBSDefinition>

@@ -1,0 +1,10 @@
+import 'PMLExtensionTemplate'
+handle any
+  
+endhandle
+
+define function !!PMLExtensionTemplate(!message is STRING)
+    using namespace 'PMLExtensionTemplate'
+    !extension = object PMLExtensionTemplateMethods()
+    !extension.ShowMessageBox(!message)
+endfunction

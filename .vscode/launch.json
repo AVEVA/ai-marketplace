@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch VS Code (Test Aveva Agent Marketplace)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "code",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

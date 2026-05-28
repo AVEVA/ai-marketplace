@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserInterfaceCustomization xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="www.aveva.com">
+  <Version>1.0</Version>
+  <FormsMetaData />
+  <Tools>
+    <StateButtonTool Name="WebpageAddInTemplate.StateButton1">
+      <Command>
+        <Type>Instance</Type>
+        <Key>WebpageAddInTemplate.ShowWindow</Key>
+        <Arguments />
+      </Command>
+      <Image />
+      <Caption>Webpage Viewer</Caption>
+      <HelpContext />
+      <DisplayStyle>Default</DisplayStyle>
+    </StateButtonTool>
+  </Tools>
+  <InstanceTools />
+  <MenuBar />
+  <CommandBars />
+  <TaskPanes />
+  <ContextMenus />
+  <AreaLeftTools />
+  <AreaRightTools />
+  <FooterTools />
+  <NavigationMenuTools />
+  <QATTools />
+  <ContextualTabGroups />
+  <TabToolbarTools />
+  <Tabs>
+    <Tab Name="WebpageAddInTemplate.Tab0">
+      <Caption>Webpage Viewer</Caption>
+      <ContextualTabGroup>
+        <Item>None</Item>
+      </ContextualTabGroup>
+      <Groups>
+        <Group Name="WebpageAddInTemplate.WebpageAddInTemplateGroup1">
+          <Tools>
+            <Tool Name="WebpageAddInTemplate.StateButton1" />
+          </Tools>
+          <Caption>Webpage Viewer</Caption>
+        </Group>
+      </Groups>
+    </Tab>
+  </Tabs>
+  <MiniToolbarTools />
+  <Namespace>WebpageAddInTemplate</Namespace>
+</UserInterfaceCustomization>

@@ -1,0 +1,19 @@
+{
+  "name": "UnifiedEngineeringCustomizationFramework",
+  "metadata": {
+    "description": "AVEVA Unified Engineering Customization Framework - Plugin marketplace for UE add-in development",
+    "version": "1.0.0",
+    "pluginRoot": "./plugins"
+  },
+  "owner": {
+    "name": "AVEVA"
+  },
+  "plugins": [
+    {
+      "name": "aveva-ue-customization",
+      "source": "aveva-ue-customization",
+      "description": "AVEVA Unified Engineering Customization Framework - Skills and agents for UE add-in development lifecycle",
+      "version": "1.0.0"
+    }
+  ]
+}

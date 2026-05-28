@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  PML-only project file.
+  This csproj does not compile any code or produce a DLL.
+  It copies *.pml* files to the appropriate pmllib subdirectory on build.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net481</TargetFramework>
+    <RootNamespace>PMLMLNetPredictTemplate</RootNamespace>
+    <AssemblyName>PMLMLNetPredictTemplate</AssemblyName>
+    <!-- Disable actual compilation - no DLL output -->
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+    <!-- Suppress warning CS2008: No source files specified (expected for PML-only projects) -->
+    <!-- Suppress warning CA1016: No binaries are generated as part of building this project -->
+    <NoWarn>CS2008;CA1016</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Use CUSTOM_PMLLIB environment variable for destination -->
+    <PmlLibPath Condition="'$(CUSTOM_PMLLIB)' != ''">$(CUSTOM_PMLLIB)</PmlLibPath>
+    <PmlLibPath Condition="'$(PmlLibPath)' == ''">$(MSBuildProjectDirectory)\..\..\pmllib\</PmlLibPath>
+  </PropertyGroup>
+
+  <!-- Include PML files as None items so they appear in the project -->
+  <ItemGroup>
+    <None Include="**\*.pml*" />
+  </ItemGroup>
+
+  <!-- Target to copy PML files to pmllib - runs after Build -->
+  <Target Name="CopyPmlFiles" AfterTargets="Build">
+    <Message Importance="high" Text="PML-only project: Copying PML files to $(PmlLibPath)..." />
+    
+    <!-- Find all *.pml* files in the project directory -->
+    <ItemGroup>
+      <PmlFormFiles Include="$(MSBuildProjectDirectory)\*.pmlfrm" />
+      <PmlObjectFiles Include="$(MSBuildProjectDirectory)\*.pmlobj" />
+      <PmlFunctionFiles Include="$(MSBuildProjectDirectory)\*.pmlfnc" />
+    </ItemGroup>
+
+    <!-- Copy form files to pmllib\forms -->
+    <Copy SourceFiles="@(PmlFormFiles)" 
+          DestinationFolder="$(PmlLibPath)forms\" 
+          SkipUnchangedFiles="true"
+          Condition="'@(PmlFormFiles)' != ''" />
+    <Message Importance="high" Text="  Copied %(PmlFormFiles.Filename)%(PmlFormFiles.Extension) to $(PmlLibPath)forms\" 
+             Condition="'@(PmlFormFiles)' != ''" />
+
+    <!-- Copy object files to pmllib\objects -->
+    <Copy SourceFiles="@(PmlObjectFiles)" 
+          DestinationFolder="$(PmlLibPath)objects\" 
+          SkipUnchangedFiles="true"
+          Condition="'@(PmlObjectFiles)' != ''" />
+    <Message Importance="high" Text="  Copied %(PmlObjectFiles.Filename)%(PmlObjectFiles.Extension) to $(PmlLibPath)objects\" 
+             Condition="'@(PmlObjectFiles)' != ''" />
+
+    <!-- Copy function files to pmllib\functions -->
+    <Copy SourceFiles="@(PmlFunctionFiles)" 
+          DestinationFolder="$(PmlLibPath)functions\" 
+          SkipUnchangedFiles="true"
+          Condition="'@(PmlFunctionFiles)' != ''" />
+    <Message Importance="high" Text="  Copied %(PmlFunctionFiles.Filename)%(PmlFunctionFiles.Extension) to $(PmlLibPath)functions\" 
+             Condition="'@(PmlFunctionFiles)' != ''" />
+
+    <Message Importance="high" Text="PML file copy complete." />
+  </Target>
+
+</Project>

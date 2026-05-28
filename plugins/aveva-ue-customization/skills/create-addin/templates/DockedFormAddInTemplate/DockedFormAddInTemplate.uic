@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserInterfaceCustomization xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="www.aveva.com">
+  <Version>1.0</Version>
+  <FormsMetaData />
+  <Tools>
+    <StateButtonTool Name="DockedFormAddInTemplate.StateButton1">
+      <Command>
+        <Type>Instance</Type>
+        <Key>DockedFormAddInTemplate.ShowWindow</Key>
+        <Arguments />
+      </Command>
+      <Image />
+      <Caption>DockedFormAddInTemplateButton</Caption>
+      <HelpContext />
+      <DisplayStyle>Default</DisplayStyle>
+    </StateButtonTool>
+  </Tools>
+  <InstanceTools />
+  <MenuBar />
+  <CommandBars />
+  <TaskPanes />
+  <ContextMenus />
+  <AreaLeftTools />
+  <AreaRightTools />
+  <FooterTools />
+  <NavigationMenuTools />
+  <QATTools />
+  <ContextualTabGroups />
+  <TabToolbarTools />
+  <Tabs>
+    <Tab Name="DockedFormAddInTemplate.Tab0">
+      <Caption>DockedFormAddInTemplate</Caption>
+      <ContextualTabGroup>
+        <Item>None</Item>
+      </ContextualTabGroup>
+      <Groups>
+        <Group Name="DockedFormAddInTemplate.DockedFormAddInTemplateGroup1">
+          <Tools>
+            <Tool Name="DockedFormAddInTemplate.StateButton1" />
+          </Tools>
+          <Caption>DockedFormAddInTemplate</Caption>
+        </Group>
+      </Groups>
+    </Tab>
+  </Tabs>
+  <MiniToolbarTools />
+  <Namespace>DockedFormAddInTemplate</Namespace>
+</UserInterfaceCustomization>
+

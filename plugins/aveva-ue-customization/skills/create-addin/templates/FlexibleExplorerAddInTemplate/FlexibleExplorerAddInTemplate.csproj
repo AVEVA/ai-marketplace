@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Condition="Exists('$(VIEW_ROOT)')" Project="$(VIEW_ROOT)\Build\AVEVA_msbuild.props" />
+  <PropertyGroup>
+    <ReferencePath>$(UNIFIED_ENGINEERING_REFERENCE_PATH)</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="Exists('$(AVEVA_DESIGN_EXE)')">
+    <ReferencePath>$(AVEVA_DESIGN_EXE)</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B1C2D3E4-F5A6-7890-BCDE-F12345678901}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FlexibleExplorerAddInTemplate</RootNamespace>
+    <AssemblyName>FlexibleExplorerAddInTemplate</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="!Exists('$(VIEW_ROOT)')">
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <OutDir>bin\$(Configuration)</OutDir>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aveva.ApplicationFramework" />
+    <Reference Include="Aveva.ApplicationFramework.Presentation" />
+    <Reference Include="Aveva.Core.Database" />
+    <Reference Include="Aveva.Core.FlexibleExplorer.Control" />
+    <Reference Include="Aveva.Core.FlexibleExplorer.Core" />
+    <Reference Include="Aveva.Core.Presentation" />
+    <Reference Include="Aveva.Core.Utilities" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MyCustomRefreshManager.cs" />
+    <Compile Include="FlexibleExplorerAddInTemplate.cs" />
+    <Compile Include="MyFlexibleExplorerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="ShowFlexibleExplorerAddInTemplateCommand.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MyFlexibleExplorerControl.resx">
+      <DependentUpon>MyFlexibleExplorerControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetPath)" "$(CAF_ADDINS_PATH)$(TargetFileName)"
+copy /Y "$(ProjectDir)FlexibleExplorerAddInTemplate.uic" "$(CAF_ADDINS_PATH)FlexibleExplorerAddInTemplate.uic"
+copy /Y "$(ProjectDir)FlexibleExplorerAddInTemplate.xml" "$(CAF_ADDINS_PATH)FlexibleExplorerAddInTemplate.xml"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

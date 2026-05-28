@@ -1,0 +1,51 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up PowerShell
+      shell: pwsh
+      run: |
+        Write-Host "PowerShell version: $($PSVersionTable.PSVersion)"
+    
+    - name: Install NuGet provider
+      shell: pwsh
+      run: |
+        if (-not (Get-PackageProvider -Name NuGet -ListAvailable -ErrorAction SilentlyContinue)) {
+          Write-Host "Installing NuGet provider..."
+          Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-Null
+        }
+    
+    - name: Trust PSGallery
+      shell: pwsh
+      run: |
+        $psGallery = Get-PSRepository -Name 'PSGallery' -ErrorAction SilentlyContinue
+        if ($psGallery -and $psGallery.InstallationPolicy -ne 'Trusted') {
+          Write-Host "Trusting PSGallery..."
+          Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+        }
+    
+    - name: Install Pester
+      shell: pwsh
+      run: |
+        if (-not (Get-Module -ListAvailable -Name Pester)) {
+          Write-Host "Installing Pester module..."
+          Install-Module Pester -Scope CurrentUser -Force -AllowClobber -SkipPublisherCheck | Out-Null
+        }
+    
+    - name: Run tests
+      shell: pwsh
+      run: |
+        cd ${{ github.workspace }}
+        & .\tests\Invoke-PesterTests.ps1
+      continue-on-error: false

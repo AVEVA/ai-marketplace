@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Condition="Exists('$(VIEW_ROOT)')" Project="$(VIEW_ROOT)\Build\AVEVA_msbuild.props" />
+  <PropertyGroup>
+    <ReferencePath>$(UNIFIED_ENGINEERING_REFERENCE_PATH)</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="Exists('$(AVEVA_DESIGN_EXE)')">
+    <ReferencePath>$(AVEVA_DESIGN_EXE)</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AC3E71FF-19E5-44FF-AB01-4E43E4BD568E}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>Examples</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Aveva.Core.Samples</RootNamespace>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>168</NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>168</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="!Exists('$(VIEW_ROOT)')">
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <OutDir>bin\$(Configuration)</OutDir>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aveva.ApplicationFramework" />
+    <Reference Include="Aveva.ApplicationFramework.Presentation" />
+    <Reference Include="Aveva.Core3D.Clasher" />
+    <Reference Include="Aveva.Core.Database" />
+    <Reference Include="Aveva.Core.Geometry" />
+    <Reference Include="Aveva.Core.Implementation" />
+    <Reference Include="Aveva.Core.Presentation" />
+    <Reference Include="Aveva.Core.Utilities" />
+    <Reference Include="Aveva.Core.Database.Filters" />
+    <Reference Include="StartUp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Example.cs" />
+    <Compile Include="ExampleAttributes.cs" />
+    <Compile Include="ExampleCE.cs" />
+    <Compile Include="ExampleClash.cs" />
+    <Compile Include="ExampleCollections.cs" />
+    <Compile Include="ExampleCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExampleDatabase.cs" />
+    <Compile Include="ExampleElement.cs" />
+    <Compile Include="ExampleEvents.cs" />
+    <Compile Include="ExampleFilters.cs" />
+    <Compile Include="ExampleMDB.cs" />
+    <Compile Include="ExampleNameTable.cs" />
+    <Compile Include="ExampleProject.cs" />
+    <Compile Include="ExamplePseudoAttribute.cs" />
+    <Compile Include="ExampleSpatial.cs" />
+    <Compile Include="ExampleTreeNavigator.cs" />
+    <Compile Include="ExampleUndo.cs" />
+    <Compile Include="ExampleUserChanges.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="Exists('$(VIEW_ROOT)')">
+    <PostBuildEvent>
+      call %25MAKE_TOOLS_CC%25\xinstall -c $(TargetPath) %25PDMSINSTALL%25\$(XBIN)
+      if exist $(TargetDir)$(TargetName).pdb call %25MAKE_TOOLS_CC%25\xinstall -c $(TargetDir)$(TargetName).pdb $(PDMSINSTALL)\$(XBIN)
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

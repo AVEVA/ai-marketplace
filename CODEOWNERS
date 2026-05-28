@@ -1,0 +1,23 @@
+# CODEOWNERS file for Unified Engineering Customization Framework
+#
+# This file defines the code owners for this repository.
+# Code owners are automatically requested for review when someone opens a pull request
+# that modifies code that they own.
+#
+# More info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+# This is the fallback if no specific rule matches
+* stuart.smith@aveva.com david.nolan@aveva.com
+
+# Plugin: AVEVA UE Customization
+/plugins/aveva-ue-customization/ stuart.smith@aveva.com david.nolan@aveva.com
+
+# Tests for AVEVA UE Customization plugin
+/tests/aveva-ue-customization/ stuart.smith@aveva.com david.nolan@aveva.com
+
+# GitHub workflows, marketplace metadata, and automation
+/.github/ stuart.smith@aveva.com david.nolan@aveva.com
+
+# Documentation
+*.md stuart.smith@aveva.com david.nolan@aveva.com

@@ -1,0 +1,61 @@
+--------------------------------------------------------------------------------------------------
+--
+-- (c) Copyright  2024 to Current Year  AVEVA Solutions Limited
+--
+-- File:            PMLMLNetPredictTemplate.pmlfnc
+-- Author:          AVEVA
+--   Type:         
+--   Group:         
+--                  
+--   Keyword:     
+--   Module:        AVEVA E3D Design
+--   Replaces:
+--
+--
+-- Description:
+--   Function to get an array of predictions from your ML NET Model
+-----------------------------------------------------------------------------------------------------
+define function !!PMLMLNetPredictTemplate(!element is dbref) is ARRAY
+	
+	import 'Aveva.Core3D.Interaction.Generic'
+	handle (1000, 0)
+	-- Already imported, safe to ignore
+	elsehandle any
+	  write /t error.text
+	  -- TODO add sensible error handling
+	endhandle
+
+	using namespace 'Aveva.Core3D.Interaction.Generic.PredictiveGenDAI'
+
+	--Import and create an object for the Prediction
+	!modelName = ''
+	if (!modelName.empty()) then
+		!!alert.Message('Pleae update your template code and set modelName.')
+		return
+	endif
+	!predictHelper = object PREDICT(!modelName)
+	!predictHelper.LoadModel()
+	!featureList = !predictHelper.GetFeaturesList()
+
+	--Add features to your Predict Object
+	!features = object FEATUREOPTIONS()
+	
+	-- Repeat for all features you want to include
+	!featureName = ''
+	!featureValue = ''
+	if (!featureName.empty() or !featureValue.empty()) then
+		!!alert.Message('Please update your template code and set featureName and featureValue.')
+		return
+	endif
+	!features.addFeature(!featureName, !featureValue)
+
+	--Assign Features to predict helper to enable predictions
+	!predictHelper.SetFeatures(!features)
+	
+	--Get predictions
+	!predictions = object ARRAY()
+	!predictions.append(!predictHelper.PredictValue())
+
+	return !predictions
+	
+endfunction

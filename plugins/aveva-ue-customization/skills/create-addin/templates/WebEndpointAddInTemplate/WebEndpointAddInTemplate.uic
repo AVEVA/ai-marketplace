@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserInterfaceCustomization xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="www.aveva.com">
+  <Version>1.0</Version>
+  <FormsMetaData />
+  <Tools>
+    <StateButtonTool Name="WebEndpointAddInTemplate.StateButton1">
+      <Command>
+        <Type>Instance</Type>
+        <Key>WebEndpointAddInTemplate.ShowWindow</Key>
+        <Arguments />
+      </Command>
+      <Image />
+      <Caption>WebEndpointAddInTemplateButton</Caption>
+      <HelpContext />
+      <DisplayStyle>Default</DisplayStyle>
+    </StateButtonTool>
+  </Tools>
+  <InstanceTools />
+  <MenuBar />
+  <CommandBars />
+  <TaskPanes />
+  <ContextMenus />
+  <AreaLeftTools />
+  <AreaRightTools />
+  <FooterTools />
+  <NavigationMenuTools />
+  <QATTools />
+  <ContextualTabGroups />
+  <TabToolbarTools />
+  <Tabs>
+    <Tab Name="WebEndpointAddInTemplate.Tab0">
+      <Caption>WebEndpointAddInTemplate</Caption>
+      <ContextualTabGroup>
+        <Item>None</Item>
+      </ContextualTabGroup>
+      <Groups>
+        <Group Name="WebEndpointAddInTemplate.WebEndpointAddInTemplateGroup1">
+          <Tools>
+            <Tool Name="WebEndpointAddInTemplate.StateButton1" />
+          </Tools>
+          <Caption>WebEndpointAddInTemplate</Caption>
+        </Group>
+      </Groups>
+    </Tab>
+  </Tabs>
+  <MiniToolbarTools />
+  <Namespace>WebEndpointAddInTemplate</Namespace>
+</UserInterfaceCustomization>

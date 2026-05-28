@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Condition="Exists('$(VIEW_ROOT)')" Project="$(VIEW_ROOT)\Build\AVEVA_msbuild.props" />
+  <PropertyGroup Condition="Exists('$(AVEVA_DESIGN_EXE)')">
+    <ReferencePath>$(AVEVA_DESIGN_EXE)</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7E5C9A12-F4D8-4B3E-8F2C-1A9E6B7C8D4F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebEndpointAddInTemplate</RootNamespace>
+    <AssemblyName>WebEndpointAddInTemplate</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ReferencePath>$(UNIFIED_ENGINEERING_REFERENCE_PATH)</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <OutputPath>bin\debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <OutputPath>bin\release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aveva.ApplicationFramework" />
+    <Reference Include="Aveva.ApplicationFramework.Implementation" />
+    <Reference Include="Aveva.ApplicationFramework.Presentation" />
+    <Reference Include="Aveva.Core3D.Clasher" />
+    <Reference Include="Aveva.Core.Database" />
+    <Reference Include="Aveva.Core.Database.Filters" />
+    <Reference Include="Aveva.Core.FlexibleExplorer.Control" />
+    <Reference Include="Aveva.Core.FlexibleExplorer.Core" />
+    <Reference Include="Aveva.Core.Geometry" />
+    <Reference Include="Aveva.Core.Implementation" />
+    <Reference Include="Aveva.Core.Presentation" />
+    <Reference Include="Aveva.Core.Utilities" />
+    <Reference Include="GridControl" />
+    <Reference Include="PMLNet" />
+    <Reference Include="StartUp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Newtonsoft.Json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="WebEndpointAddInTemplate.cs" />
+    <Compile Include="WebEndpointAddInTemplateControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShowWebEndpointAddInTemplateCommand.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WebEndpointAddInTemplateControl.resx">
+      <DependentUpon>WebEndpointAddInTemplateControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetPath)" "$(CAF_ADDINS_PATH)$(TargetFileName)"
+copy /Y "$(ProjectDir)WebEndpointAddInTemplate.uic" "$(CAF_ADDINS_PATH)WebEndpointAddInTemplate.uic"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
