@@ -11,7 +11,10 @@ argument-hint: 'No parameters - interactively prompts for confirmation when need
 
 Cleans up the UE customization environment by removing generated folders and files. This provides a clean slate for re-initializing the environment.
 
-**Script**: `./scripts/Clear-UECustomizationEnvironment.ps1`
+The [cleanup script](./scripts/Clear-UECustomizationEnvironment.ps1) path is
+relative to this SKILL.md file. Resolve it to an absolute path before invoking
+it, keeping the working directory in the user's workspace. Use that resolved path
+as `$cleanupScript` in the examples below.
 
 **Warning**: This operation removes generated files and folders. Source code in `source/` is NOT affected.
 
@@ -71,28 +74,33 @@ This script takes no parameters. It prompts interactively for confirmation when 
 
 ### Clean environment (default)
 ```powershell
-.\Clear-UECustomizationEnvironment.ps1
+& $cleanupScript
 ```
 
 ### Clean with verbose output
 ```powershell
-.\Clear-UECustomizationEnvironment.ps1 -Verbose
+& $cleanupScript -Verbose
 ```
 
 ---
 
 ## Typical Workflow
 
+Resolve `$setupScript`, `$createScript`, and `$buildScript` from the script links
+in the [setup](../setup-environment/SKILL.md),
+[create](../create-addin/SKILL.md), and [build](../build-addins/SKILL.md) skills.
+Keep the working directory in the user's workspace throughout.
+
 ```powershell
 # Clean existing environment
-.\Clear-UECustomizationEnvironment.ps1
+& $cleanupScript
 
 # Set up fresh environment
-.\Setup-UECustomizationEnvironment.ps1
+& $setupScript
 
 # Create and build add-ins
-.\New-UEAddin.ps1 -AddinName "MyAddin" -Template "DockedFormAddInTemplate" -Module "Engineering"
-.\Build-AddIns.ps1
+& $createScript -AddinName "MyAddin" -Template "DockedFormAddInTemplate" -Module "Engineering"
+& $buildScript
 ```
 
 ---

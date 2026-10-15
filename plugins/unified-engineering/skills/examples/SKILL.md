@@ -55,9 +55,12 @@ Identify keywords and map to example topics:
 
 ### 2. Read the relevant example file(s)
 
-Example files are located at:
-```
-plugins/unified-engineering/skills/examples/Examples/{filename}
+Example resource paths are relative to this SKILL.md file. Resolve them from this
+skill's installed directory, not from the user's workspace. Do not change the
+working directory to locate them.
+
+```text
+./examples/{filename}
 ```
 
 Read the complete file to understand the full context, then extract the most relevant portions.
@@ -284,4 +287,4 @@ Users can integrate these examples into their add-ins created via the `create-ad
 - **AVEVA UE API Documentation**: Official API reference
 - **create-addin skill**: Create new add-ins from templates
 - **build-addins skill**: Build add-in projects
-- **Examples README**: `plugins/unified-engineering/skills/examples/Examples/README.md`
+- [Examples README](./examples/README.md), relative to this SKILL.md file

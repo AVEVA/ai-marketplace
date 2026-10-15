@@ -14,7 +14,10 @@ Removes an AVEVA Unified Engineering add-in configuration by:
 2. Removing the CustomizationFile entry from `DesignCustomization.xml`
 3. Deleting the UIC (User Interface Customization) file
 
-**Script**: `./scripts/Remove-UEAddin.ps1`
+The [removal script](./scripts/Remove-UEAddin.ps1) path is relative to this
+SKILL.md file. Resolve it to an absolute path before invoking it, keeping the
+working directory in the user's workspace. Use that resolved path as
+`$removeScript` in the examples below.
 
 **Note**: This script removes the add-in configuration but does NOT delete the source code.
 
@@ -63,12 +66,12 @@ Use this skill when:
 
 ### Remove an add-in
 ```powershell
-.\Remove-UEAddin.ps1 -AddinName "MyEngAddin"
+& $removeScript -AddinName "MyEngAddin"
 ```
 
 ### Remove multiple add-ins
 ```powershell
-@("Addin1", "Addin2", "Addin3") | ForEach-Object { .\Remove-UEAddin.ps1 -AddinName $_ }
+@("Addin1", "Addin2", "Addin3") | ForEach-Object { & $removeScript -AddinName $_ }
 ```
 
 ---
@@ -89,7 +92,7 @@ If you want to completely remove the add-in including source code:
 
 ```powershell
 # Remove configuration
-.\Remove-UEAddin.ps1 -AddinName "MyAddin"
+& $removeScript -AddinName "MyAddin"
 
 # Manually delete source (if desired)
 Remove-Item -Path "source\MyAddin" -Recurse -Force

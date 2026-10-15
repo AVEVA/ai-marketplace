@@ -11,7 +11,10 @@ argument-hint: 'ReuseEnvironment:Optional switch to skip unpacking and reuse exi
 
 Sets up the necessary directory structure, unpacks UE MSIX files, and configures environment variables for AVEVA Unified Engineering add-in development.
 
-**Script**: `./scripts/Setup-UECustomizationEnvironment.ps1`
+The [setup script](./scripts/Setup-UECustomizationEnvironment.ps1) path is relative
+to this SKILL.md file. Resolve it to an absolute path before invoking it, keeping
+the working directory in the user's workspace. Use that resolved path as
+`$setupScript` in the examples below.
 
 This script is typically the first step in setting up a new development environment for UE customizations.
 
@@ -59,17 +62,17 @@ Use this skill when:
 
 ### First-time setup
 ```powershell
-.\Setup-UECustomizationEnvironment.ps1
+& $setupScript
 ```
 
 ### Quick setup (reuse existing environment)
 ```powershell
-.\Setup-UECustomizationEnvironment.ps1 -ReuseEnvironment
+& $setupScript -ReuseEnvironment
 ```
 
 ### Setup with verbose output
 ```powershell
-.\Setup-UECustomizationEnvironment.ps1 -Verbose
+& $setupScript -Verbose
 ```
 
 ---

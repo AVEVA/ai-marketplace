@@ -12,8 +12,11 @@ files, building projects, or launching the application.
 
 ## Script
 
-Run [Restore-UEEnvironment.ps1](scripts/Restore-UEEnvironment.ps1) from this skill's
-installed directory. It owns environment restoration for setup, build, and start.
+The [restoration script](./scripts/Restore-UEEnvironment.ps1) path is relative to
+this SKILL.md file. Resolve it to an absolute path before invoking it, keeping the
+working directory in the user's workspace. Use that resolved path as
+`$restoreScript` in the examples below. It owns environment restoration for
+setup, build, and start.
 
 ## Parameters
 
@@ -34,13 +37,13 @@ installed directory. It owns environment restoration for setup, build, and start
 4. If restoration fails, stop the dependent build or launch and report the error.
 
 ```powershell
-& "<installed-skill-path>/scripts/Restore-UEEnvironment.ps1"
+& $restoreScript
 ```
 
 To select another saved configuration:
 
 ```powershell
-& "<installed-skill-path>/scripts/Restore-UEEnvironment.ps1" -ConfigPath "<workspace>/environment.json"
+& $restoreScript -ConfigPath "<workspace>/environment.json"
 ```
 
 ## Behavior

@@ -11,7 +11,10 @@ argument-hint: 'Directory:Target directory containing csproj files (default: sou
 
 Builds all C# add-in projects in a specified directory using `dotnet build`. Recursively finds all `.csproj` files and builds them with the specified configuration.
 
-**Script**: `./scripts/Build-AddIns.ps1`
+The [build script](./scripts/Build-AddIns.ps1) path is relative to this SKILL.md
+file. Resolve it to an absolute path before invoking it, keeping the working
+directory in the user's workspace. Use that resolved path as `$buildScript` in
+the examples below.
 
 ---
 
@@ -57,22 +60,22 @@ Use this skill when:
 
 ### Build all add-ins in default directory (Debug)
 ```powershell
-.\Build-AddIns.ps1
+& $buildScript
 ```
 
 ### Build all add-ins in Release configuration
 ```powershell
-.\Build-AddIns.ps1 -Configuration Release
+& $buildScript -Configuration Release
 ```
 
 ### Build add-ins in specific directory
 ```powershell
-.\Build-AddIns.ps1 -Directory "C:\MyCustomAddins"
+& $buildScript -Directory "C:\MyCustomAddins"
 ```
 
 ### Build with both parameters
 ```powershell
-.\Build-AddIns.ps1 -Directory "source\MyAddins" -Configuration Release
+& $buildScript -Directory "source\MyAddins" -Configuration Release
 ```
 
 ---

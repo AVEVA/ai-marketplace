@@ -14,7 +14,10 @@ Creates a new AVEVA Unified Engineering add-in by:
 2. Creating add-in configuration entries in XML files
 3. Setting up the add-in for the specified UE module
 
-**Script**: `./scripts/New-UEAddin.ps1`
+The [creation script](./scripts/New-UEAddin.ps1) path is relative to this SKILL.md
+file. Resolve it to an absolute path before invoking it, keeping the working
+directory in the user's workspace. Use that resolved path as `$createScript` in
+the examples below.
 
 ---
 
@@ -78,17 +81,17 @@ The framework includes several templates in the `templates/` folder:
 
 ### Create an Engineering add-in from docked form template
 ```powershell
-.\New-UEAddin.ps1 -AddinName "MyEngAddin" -Template "DockedFormAddInTemplate" -Module "Engineering"
+& $createScript -AddinName "MyEngAddin" -Template "DockedFormAddInTemplate" -Module "Engineering"
 ```
 
 ### Create a Model add-in from attribute browser template
 ```powershell
-.\New-UEAddin.ps1 -AddinName "ModelBrowser" -Template "AttributeBrowserAddInTemplate" -Module "Model"
+& $createScript -AddinName "ModelBrowser" -Template "AttributeBrowserAddInTemplate" -Module "Model"
 ```
 
 ### Create a web-enabled add-in
 ```powershell
-.\New-UEAddin.ps1 -AddinName "WebDashboard" -Template "WebpageAddInTemplate" -Module "Engineering"
+& $createScript -AddinName "WebDashboard" -Template "WebpageAddInTemplate" -Module "Engineering"
 ```
 
 ---

@@ -11,7 +11,10 @@ argument-hint: 'Module:UE module to launch (Engineering/Model/etc.), Project:Pro
 
 Launches AVEVA Unified Engineering with the customization environment restored. This ensures your add-ins are properly loaded with the correct environment variables and configuration.
 
-**Script**: `./scripts/Start-UE.ps1`
+The [launch script](./scripts/Start-UE.ps1) path is relative to this SKILL.md file.
+Resolve it to an absolute path before invoking it, keeping the working directory
+in the user's workspace. Use that resolved path as `$startScript` in the examples
+below.
 
 ---
 
@@ -59,27 +62,27 @@ Use this skill when:
 
 ### Launch UE with default settings
 ```powershell
-.\Start-UE.ps1
+& $startScript
 ```
 
 ### Launch Engineering module
 ```powershell
-.\Start-UE.ps1 -Module Engineering
+& $startScript -Module Engineering
 ```
 
 ### Launch with project and username
 ```powershell
-.\Start-UE.ps1 -Module Engineering -Project "MyProject" -Username "user1"
+& $startScript -Module Engineering -Project "MyProject" -Username "user1"
 ```
 
 ### Launch with MDB
 ```powershell
-.\Start-UE.ps1 -Module Engineering -Project "MyProject" -Username "user1" -Mdb "MyMdb"
+& $startScript -Module Engineering -Project "MyProject" -Username "user1" -Mdb "MyMdb"
 ```
 
 ### Launch with verbose output
 ```powershell
-.\Start-UE.ps1 -Module Engineering -Verbose
+& $startScript -Module Engineering -Verbose
 ```
 
 ---
@@ -116,9 +119,9 @@ The script restores these environment variables from `environment.json`:
 ## Troubleshooting
 
 ### Add-ins not loading
-- Verify add-ins are built: `.\Build-AddIns.ps1`
+- Verify add-ins are built using the [build-addins skill](../build-addins/SKILL.md)
 - Check `addins/DesignAddins.xml` contains add-in entries
-- Ensure environment was set up: `.\Setup-UECustomizationEnvironment.ps1`
+- Ensure the environment was initialized using the [setup-environment skill](../setup-environment/SKILL.md)
 
 ### UE command not found
 - Verify AVEVA Unified Engineering is installed
