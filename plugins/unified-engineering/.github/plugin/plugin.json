@@ -1,0 +1,11 @@
+{
+  "name": "unified-engineering",
+  "description": "Skills and agents for AVEVA Unified Engineering, including customization and add-in development",
+  "version": "1.0.0",
+  "author": {
+    "name": "AVEVA"
+  },
+  "keywords": ["UE", "Unified Engineering", "Customization", "Add-In", "AVEVA"],
+  "skills": "skills/",
+  "agents": "agents/"
+}

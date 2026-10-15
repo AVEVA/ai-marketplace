@@ -1,0 +1,15 @@
+{
+  "name": "ai-marketplace",
+  "description": "Marketplace for AVEVA skills and agents across products and workflows",
+  "version": "1.0.0",
+  "owner": {
+    "name": "AVEVA"
+  },
+  "plugins": [
+    {
+      "name": "unified-engineering",
+      "description": "Skills and agents for AVEVA Unified Engineering, including customization and add-in development",
+      "source": "./plugins/unified-engineering"
+    }
+  ]
+}

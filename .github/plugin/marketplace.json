@@ -1,7 +1,7 @@
 {
-  "name": "UnifiedEngineeringCustomizationFramework",
+  "name": "ai-marketplace",
   "metadata": {
-    "description": "AVEVA Unified Engineering Customization Framework - Plugin marketplace for UE add-in development",
+    "description": "Marketplace for AVEVA skills and agents across products and workflows",
     "version": "1.0.0",
     "pluginRoot": "./plugins"
   },
@@ -10,9 +10,9 @@
   },
   "plugins": [
     {
-      "name": "aveva-ue-customization",
-      "source": "aveva-ue-customization",
-      "description": "AVEVA Unified Engineering Customization Framework - Skills and agents for UE add-in development lifecycle",
+      "name": "unified-engineering",
+      "source": "unified-engineering",
+      "description": "Skills and agents for AVEVA Unified Engineering, including customization and add-in development",
       "version": "1.0.0"
     }
   ]
