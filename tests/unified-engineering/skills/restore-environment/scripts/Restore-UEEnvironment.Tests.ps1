@@ -18,7 +18,7 @@ Describe 'Restore-UEEnvironment skill script' -Tag 'Unit' {
             UNIFIED_ENGINEERING_REFERENCE_PATH = 'saved-reference'
         } | ConvertTo-Json | Set-Content $configPath
 
-        Restore-EnvironmentVariables -ConfigPath $configPath
+        Restore-Environment -ConfigPath $configPath
 
         Should -Invoke Set-EnvironmentVariableUserAndSession -Times 2 -Exactly
         Should -Invoke Set-EnvironmentVariableUserAndSession -Times 1 -Exactly -ParameterFilter {
@@ -30,7 +30,7 @@ Describe 'Restore-UEEnvironment skill script' -Tag 'Unit' {
     }
 
     It 'rejects a missing configuration before applying any variables' {
-        { Restore-EnvironmentVariables -ConfigPath (Join-Path $TestDrive 'missing.json') } | Should -Throw '*configuration not found*'
+        { Restore-Environment -ConfigPath (Join-Path $TestDrive 'missing.json') } | Should -Throw '*configuration not found*'
 
         Should -Invoke Set-EnvironmentVariableUserAndSession -Times 0 -Exactly
     }
@@ -38,7 +38,7 @@ Describe 'Restore-UEEnvironment skill script' -Tag 'Unit' {
     It 'rejects malformed JSON before applying any variables' {
         '{ invalid JSON' | Set-Content $configPath
 
-        { Restore-EnvironmentVariables -ConfigPath $configPath } | Should -Throw
+        { Restore-Environment -ConfigPath $configPath } | Should -Throw
 
         Should -Invoke Set-EnvironmentVariableUserAndSession -Times 0 -Exactly
     }

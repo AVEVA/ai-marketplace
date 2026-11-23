@@ -22,7 +22,7 @@ param (
 )
 
 function Set-EnvironmentVariableUserAndSession {
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     param (
         [Parameter(Mandatory = $true)] [string]$Name,
         [Parameter(Mandatory = $true)] [string]$Value
@@ -30,8 +30,10 @@ function Set-EnvironmentVariableUserAndSession {
 
     $currentUserValue = [Environment]::GetEnvironmentVariable($Name, 'User')
     if ($currentUserValue -ne $Value) {
-        [Environment]::SetEnvironmentVariable($Name, $Value, 'User')
-        Write-Host "Set user env $Name to $Value"
+        if ($PSCmdlet.ShouldProcess("User environment variable $Name", "Set to '$Value'")) {
+            [Environment]::SetEnvironmentVariable($Name, $Value, 'User')
+            Write-Host "Set user env $Name to $Value"
+        }
     }
     else {
         Write-Host "User env $Name already set; skipping write"
@@ -39,15 +41,17 @@ function Set-EnvironmentVariableUserAndSession {
 
     $currentSessionValue = (Get-Item -Path "Env:$Name" -ErrorAction SilentlyContinue).Value
     if ($currentSessionValue -ne $Value) {
-        Set-Item -Path "Env:$Name" -Value $Value
-        Write-Host "Set session env $Name to $Value"
+        if ($PSCmdlet.ShouldProcess("Session environment variable $Name", "Set to '$Value'")) {
+            Set-Item -Path "Env:$Name" -Value $Value
+            Write-Host "Set session env $Name to $Value"
+        }
     }
     else {
         Write-Host "Session env $Name already set; skipping write"
     }
 }
 
-function Restore-EnvironmentVariables {
+function Restore-Environment {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
@@ -77,5 +81,5 @@ function Restore-EnvironmentVariables {
 
 if ($MyInvocation.InvocationName -ne '.') {
     $ErrorActionPreference = 'Stop'
-    Restore-EnvironmentVariables -ConfigPath $ConfigPath
+    Restore-Environment -ConfigPath $ConfigPath
 }

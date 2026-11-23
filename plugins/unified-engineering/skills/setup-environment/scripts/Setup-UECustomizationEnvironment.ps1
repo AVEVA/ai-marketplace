@@ -27,7 +27,7 @@ param (
     [switch]$ReuseEnvironment
 )
 
-function Get-VersionParts {
+function Get-VersionArray {
     <#
     .SYNOPSIS
         Parses a version string into an array of integers.
@@ -44,7 +44,7 @@ function Get-VersionParts {
         Array of integers representing version parts.
 
     .EXAMPLE
-        Get-VersionParts -Name "1.2.3"
+        Get-VersionArray -Name "1.2.3"
         Returns: @(1, 2, 3)
     #>
     [CmdletBinding()]
@@ -172,7 +172,7 @@ function Invoke-UEUnpack {
         [PSCustomObject]@{
             Name          = $_.Name
             Path          = $_.FullName
-            VersionParts  = Get-VersionParts -Name $_.Name
+            VersionParts  = Get-VersionArray -Name $_.Name
             LastWriteTime = $_.LastWriteTime
         }
     }
@@ -240,7 +240,7 @@ function Set-EnvironmentConfiguration {
     .NOTES
         This function persists environment variables to the user profile registry.
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     param (
         [Parameter(Mandatory = $true)]
         [string]$ConfigPath,
@@ -263,10 +263,12 @@ function Set-EnvironmentConfiguration {
         UNIFIED_ENGINEERING_REFERENCE_PATH = $UnpackPath
     }
 
-    Write-Host "Writing environment summary to $ConfigPath..." -ForegroundColor Cyan
-    $configData | ConvertTo-Json | Set-Content -Path $ConfigPath -Encoding utf8
+    if ($PSCmdlet.ShouldProcess($ConfigPath, 'Write environment configuration and apply environment variables')) {
+        Write-Host "Writing environment summary to $ConfigPath..." -ForegroundColor Cyan
+        $configData | ConvertTo-Json | Set-Content -Path $ConfigPath -Encoding utf8
 
-    & (Join-Path $PSScriptRoot '..' '..' 'restore-environment' 'scripts' 'Restore-UEEnvironment.ps1') -ConfigPath $configPath
+        & (Join-Path $PSScriptRoot '..' '..' 'restore-environment' 'scripts' 'Restore-UEEnvironment.ps1') -ConfigPath $configPath
+    }
 
     Write-Output $configData
 }
@@ -321,7 +323,7 @@ function Initialize-DirectoryStructure {
     New-Item -Path $SourceFolder -ItemType Directory -Force | Out-Null
 }
 
-function Install-UEFiles {
+function Install-UEConfiguration {
     <#
     .SYNOPSIS
         Copies configuration files from unpacked UE content.
@@ -340,10 +342,10 @@ function Install-UEFiles {
         If specified, skips copying if files already exist to preserve customizations.
 
     .EXAMPLE
-        Install-UEFiles -UnpackPath "C:\UE\Unpack" -AddinsFolder "C:\addins"
+        Install-UEConfiguration -UnpackPath "C:\UE\Unpack" -AddinsFolder "C:\addins"
 
     .EXAMPLE
-        Install-UEFiles -UnpackPath "C:\UE\Unpack" -AddinsFolder "C:\addins" -SkipExisting
+        Install-UEConfiguration -UnpackPath "C:\UE\Unpack" -AddinsFolder "C:\addins" -SkipExisting
     #>
     [CmdletBinding()]
     param (
@@ -418,7 +420,7 @@ function Initialize-UECustomizationEnvironment {
     }
     Initialize-DirectoryStructure -AddinsFolder $addinsFolder -PmlLibFolder $pmlLibFolder -SourceFolder $sourceFolder
     Set-EnvironmentConfiguration -ConfigPath $configPath -AddinsFolder $addinsFolder -PmlLibFolder $pmlLibFolder -UnpackPath $latestUnpackPath
-    Install-UEFiles -UnpackPath $latestUnpackPath -AddinsFolder $addinsFolder -SkipExisting:$ReuseEnvironment
+    Install-UEConfiguration -UnpackPath $latestUnpackPath -AddinsFolder $addinsFolder -SkipExisting:$ReuseEnvironment
     Write-Host "Finished." -ForegroundColor Green
 }
 

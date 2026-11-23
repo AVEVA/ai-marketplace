@@ -17,13 +17,14 @@
 
 #>
 
-[CmdletBinding()]
+[CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory = $true)]
     [string]$AddinName
 )
 
 function Remove-UEAddinStringEntry {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Edits an in-memory XML document only.')]
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
@@ -43,6 +44,7 @@ function Remove-UEAddinStringEntry {
 }
 
 function Remove-UECustomizationFileEntry {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Edits an in-memory XML document only.')]
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
@@ -69,7 +71,7 @@ function Remove-UEAddin {
     .PARAMETER AddinName
         The add-in name to remove.
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     param (
         [Parameter(Mandatory = $true)]
         [string]$AddinName
@@ -85,6 +87,8 @@ function Remove-UEAddin {
         )
         $PSCmdlet.ThrowTerminatingError($errorRecord)
     }
+
+    if (-not $PSCmdlet.ShouldProcess($AddinName, 'Remove add-in')) { return }
 
     $CustomizationRootDir = Get-Location
     Write-Host "Removing add-in '$AddinName'..." -ForegroundColor Cyan

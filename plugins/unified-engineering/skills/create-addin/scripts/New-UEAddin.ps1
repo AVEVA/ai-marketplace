@@ -29,7 +29,7 @@
 
 #>
 
-[CmdletBinding()]
+[CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory = $true)]
     [string]$AddinName,
@@ -243,7 +243,8 @@ function Copy-UEAddinTemplate {
     }
 }
 
-function Update-UEAddinUICEntries {
+function Update-UEAddInUIC {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Internal helper; New-UEAddin gates the operation with ShouldProcess.')]
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)] [string]$AddinName,
@@ -331,7 +332,7 @@ function New-UEAddin {
         The module to create the add-in for. Valid values are: Model, Engineering, EngineeringConfiguration,
         Isodraft, Draw, Paragon, Spooler, or Monitor. If not provided, the user will be prompted.
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     param (
         [Parameter(Mandatory = $true)]
         [string]$AddinName,
@@ -361,6 +362,8 @@ function New-UEAddin {
         $PSCmdlet.ThrowTerminatingError($errorRecord)
     }
 
+    if (-not $PSCmdlet.ShouldProcess($AddinName, 'Create add-in')) { return }
+
     $CustomizationRootDir = if ([string]::IsNullOrWhiteSpace($CustomizationRootDirOverride)) { Get-Location } else { $CustomizationRootDirOverride }
     Write-Host "Using customization directory: $CustomizationRootDir" -ForegroundColor Gray
 
@@ -375,7 +378,7 @@ function New-UEAddin {
         $copyParams['TemplatesDirOverride'] = $TemplatesDirOverride
     }
     $copyResult = Copy-UEAddinTemplate @copyParams
-    Update-UEAddinUICEntries -AddinName $AddinName -CustomizationRootDir $CustomizationRootDir -HasUicFile $copyResult.HasUicFile -Module $Module
+    Update-UEAddInUIC -AddinName $AddinName -CustomizationRootDir $CustomizationRootDir -HasUicFile $copyResult.HasUicFile -Module $Module
 
     Write-Host "Add-in '$AddinName' created successfully." -ForegroundColor Green
 }

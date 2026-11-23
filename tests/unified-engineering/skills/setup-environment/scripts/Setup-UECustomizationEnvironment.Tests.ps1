@@ -31,11 +31,11 @@ Describe 'Setup-UECustomizationEnvironment skill script' -Tag 'Unit' {
         @{ Version = 'v10.2.03-beta'; Expected = @(10, 2, 3) }
         @{ Version = '5'; Expected = @(5) }
     ) {
-        @(Get-VersionParts -Name $Version) | Should -Be $Expected
+        @(Get-VersionArray -Name $Version) | Should -Be $Expected
     }
 
     It 'returns no parts for a nonnumeric version' {
-        Get-VersionParts -Name 'no-numbers-here' | Should -BeNullOrEmpty
+        Get-VersionArray -Name 'no-numbers-here' | Should -BeNullOrEmpty
     }
 
     It 'creates the environment directories including nested paths' {
@@ -80,7 +80,7 @@ Describe 'Setup-UECustomizationEnvironment skill script' -Tag 'Unit' {
         '<ArrayOfString />' | Set-Content (Join-Path $unpack 'DesignAddins.xml')
         '<Design />' | Set-Content (Join-Path $unpack 'DesignCustomization.xml')
 
-        Install-UEFiles -UnpackPath $unpack -AddinsFolder $addins
+        Install-UEConfiguration -UnpackPath $unpack -AddinsFolder $addins
 
         Test-Path (Join-Path $addins 'DesignAddins.xml') | Should -BeTrue
         Test-Path (Join-Path $addins 'DesignCustomization.xml') | Should -BeTrue
@@ -93,13 +93,13 @@ Describe 'Setup-UECustomizationEnvironment skill script' -Tag 'Unit' {
         'original' | Set-Content (Join-Path $unpack 'DesignAddins.xml')
         'customized' | Set-Content (Join-Path $addins 'DesignAddins.xml')
 
-        Install-UEFiles -UnpackPath $unpack -AddinsFolder $addins -SkipExisting
+        Install-UEConfiguration -UnpackPath $unpack -AddinsFolder $addins -SkipExisting
 
         Get-Content (Join-Path $addins 'DesignAddins.xml') | Should -Be 'customized'
     }
 
     It 'accepts an unpack directory without configuration files' {
-        { Install-UEFiles -UnpackPath $workspace -AddinsFolder (Join-Path $workspace 'addins') } | Should -Not -Throw
+        { Install-UEConfiguration -UnpackPath $workspace -AddinsFolder (Join-Path $workspace 'addins') } | Should -Not -Throw
     }
 
     It 'uses the cleanup skill before rebuilding an environment and preserves source' {
